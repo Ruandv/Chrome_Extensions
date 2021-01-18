@@ -13,10 +13,12 @@ chrome.storage.local.get('selectedCountry', function (country) {
 
       let newCases = document.getElementsByName('newCases')[0];
       let newDeaths = document.getElementsByName('newDeaths')[0];
-      myData = covidData.covidData.filter((c) => { return c.country === country.selectedCountry.replace(" ", "-") })[0];
+      let lastUpdated = document.getElementsByName('lastUpdated')[0];
+      myData = covidData.covidData.filter((c) => { return c.country.toLowerCase() === country.selectedCountry.toLowerCase().replace(" ", "-") })[0];
       countryName.textContent = myData.country;
       newCases.textContent = myData.cases.new;
-      newDeaths.textContent = myData.deaths.new;
+      newDeaths.textContent = myData.deaths.new;      
+      lastUpdated.textContent = new Date(myData.time).toLocaleTimeString();
     }
   });
 });

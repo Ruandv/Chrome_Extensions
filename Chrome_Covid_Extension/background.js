@@ -1,9 +1,9 @@
-var host = '';
-var key = '';
+var host = 'covid-193.p.rapidapi.com';
+var key = '6ecc44f076msh30d58e7de8079bfp1f17b6jsn5af08e76748d';
 chrome.runtime.onInstalled.addListener(function () {
 
   var alarmCreateInfo = {
-    "periodInMinutes": 0.6
+    "periodInMinutes": 1
   };
 
   chrome.alarms.create("CovidUpdate", alarmCreateInfo)
@@ -25,10 +25,10 @@ chrome.runtime.onInstalled.addListener(function () {
       cache: 'default',
     });
 
+    debugger;
     fetch(myRequest)
       .then(response => response.json())
       .then(myBlob => {
-
         if (myBlob === undefined)
           return;
 

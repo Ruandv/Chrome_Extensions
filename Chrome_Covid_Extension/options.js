@@ -2,7 +2,7 @@ var select = document.getElementById("country")
 var saveButton = document.getElementById("save")
 var apiKey = document.getElementById("api-key")
 var apiHost = document.getElementById("api-host")
-var countries = [];
+var countries = [{ "country": "South-Africa" }];
 function constructOptions(countries, selectedCountry) {
   saveButton.disabled = true;
   select.addEventListener("change", () => { saveButton.disabled = false; })
@@ -36,7 +36,6 @@ function onSave() {
     saveButton.disabled = true;
   })
 
-
   var item = apiKey.value;
   chrome.storage.local.set({ apiKey: item }, function () {
     console.log("Api Key data updated");
@@ -48,22 +47,35 @@ function onSave() {
 chrome.storage.local.get('selectedCountry', function (country) {
   chrome.storage.local.get('covidData', function (covidData) {
     debugger;
-    countries = covidData.covidData.map(
-      calendarList => {
-        return {
-          country: calendarList.country
+    if (covidData.covidData !== undefined) {
+      countries = covidData.covidData.map(
+        calendarList => {
+          return {
+            country: calendarList.country
+          }
         }
-      }
-    );
+      );
+    }
     constructOptions(countries, country.selectedCountry);
   });
 });
 
 
 chrome.storage.local.get('apiHost', function (data) {
-  apiHost.value = data.apiHost;
+  if (data.apiHost === undefined) {
+    apiHost.value = 'covid-193.p.rapidapi.com';
+  }
+  else {
+    apiHost.value = data.apiHost;
+  }
 });
 
 chrome.storage.local.get('apiKey', function (data) {
-  apiKey.value = data.apiKey;
+  if (data.apiKey === undefined) {
+    debugger;
+    apiKey.value = '6ecc44f076msh30d58e7de8079bfp1f17b6jsn5af08e76748'
+  }
+  else {
+    apiKey.value = data.apiKey;
+  }
 });
