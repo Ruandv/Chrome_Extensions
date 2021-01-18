@@ -5,7 +5,7 @@ chrome.storage.local.get('selectedCountry', function (country) {
     let countryName = document.getElementsByName('countryName')[0];
     let countryflag = document.getElementById('flagImage');
     countryflag.src = "https://cdn.countryflags.com/thumbs/" + country.selectedCountry.toLowerCase().replace(" ", "-") + "/flag-square-250.png"
-    if (covidData === undefined) {
+    if (covidData===undefined || covidData.covidData === undefined) {
       countryName.textContent = "NO DATA";
     }
     else {
