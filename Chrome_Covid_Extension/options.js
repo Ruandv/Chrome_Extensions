@@ -46,7 +46,6 @@ function onSave() {
 
 chrome.storage.local.get('selectedCountry', function (country) {
   chrome.storage.local.get('covidData', function (covidData) {
-    debugger;
     if (covidData.covidData !== undefined) {
       countries = covidData.covidData.map(
         calendarList => {
@@ -72,8 +71,7 @@ chrome.storage.local.get('apiHost', function (data) {
 
 chrome.storage.local.get('apiKey', function (data) {
   if (data.apiKey === undefined) {
-    debugger;
-    apiKey.value = '6ecc44f076msh30d58e7de8079bfp1f17b6jsn5af08e76748'
+    apiKey.value = ''
   }
   else {
     apiKey.value = data.apiKey;

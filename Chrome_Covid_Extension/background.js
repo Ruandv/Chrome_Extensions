@@ -25,7 +25,6 @@ chrome.runtime.onInstalled.addListener(function () {
       cache: 'default',
     });
 
-    debugger;
     fetch(myRequest)
       .then(response => response.json())
       .then(myBlob => {
