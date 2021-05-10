@@ -40,9 +40,9 @@ function onSave() {
   chrome.storage.local.set({ apiKey: item }, function () {
     console.log("Api Key data updated");
     saveButton.disabled = true;
+    window.close();
   })
 }
-
 
 chrome.storage.local.get('selectedCountry', function (country) {
   chrome.storage.local.get('covidData', function (covidData) {
