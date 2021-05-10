@@ -34,6 +34,32 @@
       width: 55px;
       height: 50px;
     }
+    .footer{
+      background-color: blueviolet;
+      display: flex;
+      flex-direction: row;
+      justify-content:space-between ;
+    }
+    .worstNewCases{
+      padding: 3px;
+      background-color: darkslategrey;
+      color: white;
+      border-radius: 5px;
+    }
+    .worstNewDeaths{
+      padding: 3px;
+      background-color: black;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .Selected{
+      padding: 3px;
+      background-color: green;
+      color: white;
+      border-radius: 5px;
+    }
+     
   </style>
 </head>
 
@@ -64,6 +90,11 @@
         <label id="lastRefreshed" name='lastRefreshed'></label>
       </div>
     </div>
+  </div>
+  <div class = footer>
+    <div id='worstNewCases' class="worstNewCases" >New Cases</div>
+    <div  id="worstNewDeaths" class="worstNewDeaths" >Deaths</div>
+    <div  id="Selected" class="Selected" >Default</div>
   </div>
 </body>
 <script src="popup.js"></script>
