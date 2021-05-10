@@ -1,5 +1,5 @@
 var host = "covid-193.p.rapidapi.com";
-var key = "6ecc44f076msh30d58e7de8079bfp1f17b6jsn5af08e76748";
+var key = "";
 chrome.runtime.onInstalled.addListener(function () {
   var alarmCreateInfo = {
     periodInMinutes: 0.1,
