@@ -3,7 +3,7 @@ var key = "";
 
 chrome.runtime.onInstalled.addListener(function () {
   var alarmCreateInfo = {
-    periodInMinutes:0.1,
+    periodInMinutes:5,
   };
 
   chrome.alarms.create("CovidUpdate", alarmCreateInfo);
