@@ -1,102 +1,111 @@
 <html>
+  <head>
+    <style>
+      body {
+        background-color: white;
+        width: 200px;
+        max-height: 40px;
+        padding: 0px;
+        margin: 0px;
+      }
+      .flagContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+      .container {
+        display: flex;
+        flex-grow: 1;
+        background-color: khaki;
+        flex-direction: column;
+      }
+      .container2 {
+        display: flex;
+        background-color: khaki;
+        flex-direction: row;
+        height: 100;
+      }
+      .flagImage {
+        width: 55px;
+        height: 50px;
+      }
+      .footer {
+        background-color: blueviolet;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .worstNewCases {
+        padding: 3px;
+        background-color: darkslategrey;
+        color: white;
+        border-radius: 5px;
+      }
+      .worstNewDeaths {
+        padding: 3px;
+        background-color: black;
+        color: white;
+        border-radius: 5px;
+      }
+      .Selected {
+        padding: 3px;
+        background-color: green;
+        color: white;
+        border-radius: 5px;
+      }
+      .hidden {
+        display: none;
+      }
+      .rowHeadings {
+        display: flex;
+        justify-content: space-around;
+      }
+      .rowHeadings > div {
+        background-color: black;
+        color: white;
+      }
+      .row {
+        display: flex;
+        justify-content: space-around;
+      }
+      .row > div {
+        background-color: blue;
+        color: white;
+      }
+    </style>
+  </head>
 
-<head>
-
-  <style>
-    body {
-      background-color: white;
-      width: 200px;
-      max-height: 40px;
-      padding: 0px;
-      margin: 0px;
-    }
-
-    .flagContainer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .container {
-      display: flex;
-      flex-grow: 1;
-      background-color: khaki;
-      flex-direction: column;
-    }
-
-    .container2 {
-      display: flex;
-      background-color: khaki;
-      flex-direction: row;
-    }
-
-    .flagImage {
-      width: 55px;
-      height: 50px;
-    }
-    .footer{
-      background-color: blueviolet;
-      display: flex;
-      flex-direction: row;
-      justify-content:space-between ;
-    }
-    .worstNewCases{
-      padding: 3px;
-      background-color: darkslategrey;
-      color: white;
-      border-radius: 5px;
-    }
-    .worstNewDeaths{
-      padding: 3px;
-      background-color: black;
-      color: white;
-      border-radius: 5px;
-    }
-
-    .Selected{
-      padding: 3px;
-      background-color: green;
-      color: white;
-      border-radius: 5px;
-    }
-     
-  </style>
-</head>
-
-<body>
-  <div class='container2'>
-    <div class='flagContainer'>
-      <Image id='flagImage' class="flagImage" src='' />
+  <body>
+    <div id="covidData" class="container2">
+      <div class="flagContainer">
+        <image id="flagImage" class="flagImage" src="" />
+        <div class="item">
+          <b><label for="countryName">Country :</label></b>
+          <label id="countryName" name="countryName"></label>
+        </div>
+      </div>
+      <div class="container">
+        <div class="item">
+          <b><label for="newCases">New Cases :</label></b>
+          <label id="newCases" name="newCases"></label>
+        </div>
+        <div class="item">
+          <b><label for="newDeaths">New Deaths :</label></b>
+          <label id="newDeaths" name="newDeaths"></label>
+        </div>
+        <div class="item">
+          <b><label for="lastUpdated">Last Updated :</label></b>
+          <label id="lastUpdated" name="lastUpdated"></label>
+        </div>
+      </div>
     </div>
-    <div class="container">
-      <div class='item'>
-        <b><label for="countryName">Country :</label></b>
-        <label id='countryName' name='countryName'></label>
-      </div>
-      <div class='item'>
-        <b><label for="newCases">New Cases :</label></b>
-        <label id='newCases' name='newCases'></label>
-      </div>
-      <div class='item'>
-        <b><label for="newDeaths">New Deaths :</label></b>
-        <label id='newDeaths' name='newDeaths'></label>
-      </div>
-      <div class='item'>
-        <b><label for="lastUpdated">Last Updated :</label></b>
-        <label id="lastUpdated" name='lastUpdated'></label>
-      </div>
-      <div class='item'>
-        <b><label for="lastRefreshed">Last Refreshed :</label></b>
-        <label id="lastRefreshed" name='lastRefreshed'></label>
-      </div>
+    <div class="footer">
+      <div id="worstNewCases" class="worstNewCases">New Cases</div>
+      <div id="worstNewDeaths" class="worstNewDeaths">Deaths</div>
+      <div id="Selected" class="Selected">Default</div>
     </div>
-  </div>
-  <div class = footer>
-    <div id='worstNewCases' class="worstNewCases" >New Cases</div>
-    <div  id="worstNewDeaths" class="worstNewDeaths" >Deaths</div>
-    <div  id="Selected" class="Selected" >Default</div>
-  </div>
-</body>
-<script src="popup.js"></script>
-
+  </body>
+  <script src="popup.js"></script>
 </html>
