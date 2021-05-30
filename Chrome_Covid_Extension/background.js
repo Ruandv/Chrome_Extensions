@@ -13,7 +13,7 @@ chrome.runtime.onInstalled.addListener(function () {
       console.log("Host or Key is empty!!!");
       return;
     }
-    var notAllowed = ['Africa','All',"Asia","Europe"];
+    var notAllowed = ['Africa','All',"Asia","Europe",'South-America','North-America'];
 
     const myHeaders = new Headers({
       "x-rapidapi-key": key.apiKey,
