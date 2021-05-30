@@ -3,7 +3,8 @@ var key = "";
 
 chrome.runtime.onInstalled.addListener(function () {
   var alarmCreateInfo = {
-    periodInMinutes:0.1,
+    //periodInMinutes:0.1,
+    periodInMinutes:5,
   };
 
   chrome.alarms.create("CovidUpdate", alarmCreateInfo);
@@ -13,7 +14,7 @@ chrome.runtime.onInstalled.addListener(function () {
       console.log("Host or Key is empty!!!");
       return;
     }
-    var notAllowed = ['Africa','All',"Asia","Europe"];
+    var notAllowed = ['Africa','All',"Asia","Europe",'South-America','North-America'];
 
     const myHeaders = new Headers({
       "x-rapidapi-key": key.apiKey,
@@ -35,7 +36,26 @@ chrome.runtime.onInstalled.addListener(function () {
       var a = data.reduce(isWorseDeaths, { country: "", newDeaths: 0 });
       return a;
     };
-
+    const topFiveCountries = async(data)=>{
+      var a = data.reduce(isTop5, [{ country: "", newDeaths: 0 }]);
+      return a;
+    }
+    function isTop5(countries,countryData){
+      if (notAllowed.indexOf(countryData.country)<0) {
+        // get the first country in the array
+        
+        if (parseInt(countries[0].newDeaths) < parseInt(countryData.deaths.new)) {
+          var a = {
+            country: countryData.country,
+            newCases: countryData.cases.new,
+            newDeaths : countryData.deaths.new,
+            time :countryData.time
+          };
+          return a;
+        }
+      }
+      return countries;
+    }
     function isWorseDeaths(country, countryData) {
       if (notAllowed.indexOf(countryData.country)<0) {
         if (parseInt(country.newDeaths)< parseInt(countryData.deaths.new)) {
@@ -43,7 +63,7 @@ chrome.runtime.onInstalled.addListener(function () {
             country: countryData.country,
             newCases: countryData.cases.new,
             newDeaths : countryData.deaths.new,
-            time :new Date(countryData.time).toLocaleString()
+            time :countryData.time
           };
           return a;
         }
@@ -58,7 +78,7 @@ chrome.runtime.onInstalled.addListener(function () {
             country: countryData.country,
             newCases: countryData.cases.new,
             newDeaths : countryData.deaths.new,
-            time :new Date(countryData.time).toLocaleString()
+            time :new Date(countryData.time).toISOString()
           };
           return a;
         }
