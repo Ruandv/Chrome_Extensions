@@ -23,43 +23,54 @@ document.addEventListener("DOMContentLoaded", function () {});
 
 var translator = {
   setup: function (q) {
-    const data = "q=" + encodeURI(q) + "&target=de&source=en";
+    getApiKey().then((x) => {
+      debugger;
+      const apiKey = "key=" + x;
+      const data = "?q=" + encodeURI(q) + "&target=af&source=en&" + apiKey;
 
-    const xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+      const xhr = new XMLHttpRequest();
 
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === this.DONE) {
-        if (this.status === 200) {
-          document.querySelector("#translations").innerHTML = "";
-          JSON.parse(this.responseText).data.translations.forEach(
-            (x) =>
-              (document.querySelector("#translations").innerHTML =
-                document.querySelector("#translations").innerHTML +
-                "<br>" +
-                x.translatedText)
-          );
-          console.log(this.responseText);
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+          if (this.status === 200) {
+            document.querySelector("#translations").innerHTML = "";
+            JSON.parse(this.responseText).data.translations.forEach(
+              (x) =>
+                (document.querySelector("#translations").innerHTML =
+                  document.querySelector("#translations").innerHTML +
+                  "<br>" +
+                  x.translatedText)
+            );
+            console.log(this.responseText);
+          } else {
+            document.querySelector("#translations").innerHTML =
+              this.status + " " + this.statusText;
+          }
         } else {
-          document.querySelector("#translations").innerHTML =
-            this.status + " " + this.statusText;
         }
-      } else {
-      }
+      });
+
+      xhr.open(
+        "GET",
+        "https://translation.googleapis.com/language/translate/v2" + data
+      );
+      xhr.setRequestHeader("accept-encoding", "application/gzip");
+
+      xhr.send();
     });
-
-    xhr.open(
-      "POST",
-      "https://google-translate1.p.rapidapi.com/language/translate/v2"
-    );
-    xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("accept-encoding", "application/gzip");
-    xhr.setRequestHeader(
-      "x-rapidapi-key",
-      ""
-    );
-    xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
-
-    xhr.send(data);
   },
 };
+
+async function getApiKey() {
+  var key = "apiKey";
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get([key], function (result) {
+      debugger;
+      if (Object.values(result)[0] != undefined) {
+        resolve(Object.values(result)[0]);
+      } else {
+        reject();
+      }
+    });
+  });
+}
