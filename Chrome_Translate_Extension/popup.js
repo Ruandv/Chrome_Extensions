@@ -1,32 +1,13 @@
-function translate(code) {
-  if (code !== undefined) {
-    document.getElementById("translations").innerHTML = "loading ...";
-    translator.setup(code[0]);
-    word = "Translate : <b>" + code[0] + "</b>";
-    document.querySelector("#word").innerHTML = word;
-  }
-}
-
-function goTranslate() {
-  translate([document.getElementById("search").value]);
-}
-
-chrome.tabs.executeScript(
-  {
-    code: "window.getSelection().toString();",
-  },
-  translate
-);
-
-document.getElementById("translate").addEventListener("click", goTranslate);
+document.getElementById("tab1").addEventListener("click",()=>{changeLanguage('tab1','af')});
+document.getElementById("tab2").addEventListener("click",()=>{changeLanguage('tab2','de')});
+document.getElementById("tab3").addEventListener("click",()=>{changeLanguage('tab3','zu')});
 document.addEventListener("DOMContentLoaded", function () {});
 
 var translator = {
-  setup: function (q) {
+  setup: function (q,target) {
     getApiKey().then((x) => {
-      debugger;
       const apiKey = "key=" + x;
-      const data = "?q=" + encodeURI(q) + "&target=af&source=en&" + apiKey;
+      const data = "?q=" + encodeURI(q) + "&target="+encodeURI(target)+"&" + apiKey;
 
       const xhr = new XMLHttpRequest();
 
@@ -74,3 +55,33 @@ async function getApiKey() {
     });
   });
 }
+
+function translate(code,lang) {
+  if (code !== undefined && code[0]!=='') {
+    document.getElementById("translations").innerHTML = "loading ...";
+    translator.setup(code[0],lang);
+    word = "Translate : <b>" + code[0] + "</b>";
+    document.querySelector("#word").innerHTML = word;
+  }
+}
+
+function changeLanguage(tabId,lang){
+  setActiveTab(tabId);
+  translate([document.getElementById("search").value],lang);
+}
+function setActiveTab(tabId){
+  document.getElementById('tab1').classList.remove('active');
+  document.getElementById('tab2').classList.remove('active');
+  document.getElementById('tab3').classList.remove('active');
+  document.getElementById(tabId).classList.add('active');
+}
+function goTranslate() {
+  translate([document.getElementById("search").value],'af');
+}
+
+chrome.tabs.executeScript(
+  {
+    code: "window.getSelection().toString();"
+  },
+  translate
+);

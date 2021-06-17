@@ -8,8 +8,6 @@ function constructOptions() {
 }
 
 function onSave() {
-  debugger;
-   
   var item = apiKey.value;
   chrome.storage.local.set({ apiKey: item }, function () {
     console.log("Api Key data updated");
